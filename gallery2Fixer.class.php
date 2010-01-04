@@ -25,8 +25,9 @@ class gallery2Fixer {
     var $schemaParents;
     var $successes;
     var $errors;
-
-    function __construct($databaseName, $table_prefix, $field_prefix) {
+    var $explainQueries;
+    
+    function __construct($databaseName, $table_prefix, $field_prefix, $explain_queries = false) {
 	$this->databaseName = $databaseName;
 	$this->tablePrefix = $table_prefix;
 	$this->fieldPrefix = $field_prefix;
@@ -35,6 +36,10 @@ class gallery2Fixer {
 	    trigger_error('Could not get database connection', E_USER_NOTICE);
 	    die();
 	}
+	
+	$this->explainQueries = $explain_queries;
+	$this->databaseMachine->setLogging($this->explainQueries);
+	
 	$this->tablesSetUp = false;
 	$this->tables = array();
 	$this->tableDescriptions = array();
@@ -809,5 +814,8 @@ WHERE (
 	$texts[] = '</tbody>';
 	$texts[] = '</table>';
 	return join("\n", $texts);
+    }
+    function getQueryExplanations() {
+	return $this->databaseMachine->report();
     }
 }

@@ -10,7 +10,7 @@ define('INTEGRITY_ALLOW_CHANGES', false);
 $database_name = 'db2276_gallery2';
 $table_prefix = 'g2_';
 $field_prefix = 'g_';
-
+$explain_queries = true;
 
 /*
  * I have a function named like this included into every page.  You might not,

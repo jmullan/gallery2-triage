@@ -24,7 +24,8 @@ $success_text = '';
 $item_text = '';
 $table_descriptions = array();
 $table_descriptions_string = '';
-$fixer = new gallery2Fixer($database_name, $table_prefix, $field_prefix);
+$fixer = new gallery2Fixer($database_name, $table_prefix, $field_prefix, !empty($explain_queries));
+$query_explanations = '';
 
 if (isset($_GET['id_of_interest']) && (0 <= ($id_of_interest = intval($_GET['id_of_interest'])))) {
     $item_text = $fixer->interrogateItem($id_of_interest);
@@ -86,6 +87,9 @@ if (isset($_GET['id_of_interest']) && (0 <= ($id_of_interest = intval($_GET['id_
 				       $fixer->successes))
 		. '</ul>';
     }
+    if ($fixer->explainQueries) {
+	$query_explanations = $fixer->getQueryExplanations();
+    }
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -133,6 +137,10 @@ if ($error_text || $success_text || $table_descriptions_string) {
     if ($table_descriptions_string) {
 	echo  '<dt>Possible foreign keys to check</dt>';
 	echo  '<dd>' . $table_descriptions_string . '</dd>';
+    }
+    if ($query_explanations) {
+	echo '<dt>Queries</dt>';
+	echo '<dd>' . $query_explanations . '</dt>';
     }
     echo  '</dl>';
 }
