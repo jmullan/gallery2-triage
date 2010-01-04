@@ -317,11 +317,41 @@ class databaseMachine {
                         $table[] = '</td>';
                         $table[] = '<td style="vertical-align: top"><pre>';
                         $table[] = $data['query'];
-                        if ($explanation) {
-                            $table[] = "\n\n";
-                            $table[] = varDump($explanation, '$explanation', false);
-                        }
                         $table[] = '</pre>';
+                        if ($explanation) {
+			    $once = true;
+			    $report = '<table class="queryexplained">';
+			    foreach ($explanation as $row) {
+				if ($once) {
+				    $report .='<tr>';
+				    foreach ($row as $key => $value) {
+					$report .= '<th>';
+					$report .= $key;
+					$report .= '</th>';
+				    }
+				    $report .='</tr>';
+				    $once = false;
+				}
+				$report .='<tr>';
+				foreach ($row as $key => $value) {
+				    if ('type' == $key && 'ALL' == $value) {
+					$report .= '<td class="error">';
+				    } elseif ('key_len' == $key
+					      || 'rows' == $key) {
+					$report .= '<td class="numeric">';
+				    } else {
+					$report .= '<td>';
+				    }
+				    $report .= $value;
+				    $report .= '</td>';
+				}
+				$report .='</tr>';
+			    }
+			    $report .='</table>';
+			    $table[] = $report;
+                            #$table[] = "\n\n";
+                            #$table[] = varDump($explanation, '$explanation', false);
+                        }
                         $table[] = '</td>';
                         $table[] = '</tr>';
                     }

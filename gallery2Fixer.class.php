@@ -1,5 +1,8 @@
 <?php
 require_once('miscHelper.class.php');
+if (!class_exists('databaseMachine')) {
+#    require_once('databaseMachine.class.php');
+}
 class gallery2Fixer {
     var $databaseName;
     var $tablePrefix;

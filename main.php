@@ -12,9 +12,6 @@ if (!version_compare(PHP_VERSION, '5.2.0', '>=')) {
     die('I need PHP 5.2.x or higher to run. You are currently running PHP ' . PHP_VERSION . '.');
 }
 
-if (!class_exists('databaseMachine')) {
-    require_once('databaseMachine.class.php');
-}
 require_once('stringWrapper.class.php');
 require_once('gallery2Fixer.class.php');
 
@@ -96,26 +93,7 @@ if (isset($_GET['id_of_interest']) && (0 <= ($id_of_interest = intval($_GET['id_
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Gallery Integrity Checking</title>
-
-<style type="text/css">
-.errors {
-    color: red;
-    background-color: #ffeeee;
-}
-.successes {
-    background-color: #eeffee;
-}
-.dump {
- margin: 0em;
- border-collapse: collapse;
-}
-.dump td, .dump th {
-    font-size: 10px;
- border: 1px solid #333333;
- padding: 0.5em;
- margin: 0em;
-}
-</style>
+<link rel="stylesheet" href="style.css" type="text/css" media="all" />
 </head>
 <body>
 <?php
