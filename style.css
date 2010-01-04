@@ -1,0 +1,36 @@
+.errors {
+    color: red;
+    background-color: #ffeeee;
+    border: 1px solid red;
+}
+.error {
+    color: red;
+    background-color: #ffeeee;
+}
+.successes {
+    background-color: #eeffee;
+}
+.dump {
+    margin: 0em;
+    border-collapse: collapse;
+}
+.dump td, .dump th {
+    font-size: 10px;
+    border: 1px solid #333333;
+    padding: 0.5em;
+    margin: 0em;
+}
+.numeric {
+    text-align: right;    
+}
+.queryexplained {
+    border-collapse: collapse;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+}
+.queryexplained th, .queryexplained td {
+    padding: 0.25em;
+    margin: 0em;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
